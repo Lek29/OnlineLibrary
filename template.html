@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Библиотека</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .book-card {
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+        .book-cover {
+            width: 200px;
+            height: 300px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+        <h1 class="text-center mb-4">Моя библиотека</h1>
+
+        <!-- Цикл по книгам -->
+        {% for book in books %}
+        <div class="card book-card">
+            <div class="row g-0">
+                <!-- Обложка -->
+                <div class="col-md-4">
+                    <img
+                        src="{{ book.img_src }}"
+                        class="img-fluid rounded-start book-cover"
+                        alt="Обложка: {{ book.title }}"
+                    >
+                </div>
+                <!-- Информация о книге -->
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        <p class="card-text text-muted">{{ book.author }}</p>
+                        <p class="card-text"><small>{{ book.genres }}</small></p>
+                        <a href="{{ book.book_path }}" class="btn btn-sm btn-outline-primary">Читать</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
