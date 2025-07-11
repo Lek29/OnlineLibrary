@@ -18,33 +18,34 @@
 </head>
 <body>
     <div class="container py-4">
-        <h1 class="text-center mb-4">Моя библиотека</h1>
-
-        <!-- Цикл по книгам -->
-        {% for book in books %}
-        <div class="card book-card">
-            <div class="row g-0">
-                <!-- Обложка -->
-                <div class="col-md-4">
-                    <img
-                        src="{{ book.img_src }}"
-                        class="img-fluid rounded-start book-cover"
-                        alt="Обложка: {{ book.title }}"
-                    >
-                </div>
-                <!-- Информация о книге -->
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ book.title }}</h5>
-                        <p class="card-text text-muted">{{ book.author }}</p>
-                        <p class="card-text"><small>{{ book.genres }}</small></p>
-                        <a href="{{ book.book_path }}" class="btn btn-sm btn-outline-primary">Читать</a>
+        <h1 class="text-center mb-4">Моя библиотека awesome</h1>
+        {% for books_pair in books_chunks %}
+        <div class="row">
+            {% for book in books_pair %}
+            <div class="col-md-6">
+                <div class="card book-card">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img
+                                src="{{ book.img_src }}"
+                                class="img-fluid rounded-start book-cover"
+                                alt="Обложка: {{ book.title }}"
+                            >
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ book.title }}</h5>
+                                <p class="card-text text-muted">{{ book.author }}</p>
+                                <p class="card-text"><small>{{ book.genres }}</small></p>
+                                <a href="{{ book.book_path }}" class="btn btn-sm btn-outline-primary">Читать</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
         {% endfor %}
     </div>
-<script src="http://localhost:35729/livereload.js"></script>
 </body>
 </html>

@@ -1,12 +1,16 @@
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import json
 from livereload import Server
+from more_itertools import chunked
+
 
 def on_reload():
     print('Обнаружено изменение...')
 
     with open('meta_data.json', 'r', encoding='utf-8') as f:
         books = json.load(f)
+
+    books_chunks = list(chunked(books, 2))
 
     env = Environment(
         loader=FileSystemLoader('templates'),
@@ -15,7 +19,7 @@ def on_reload():
     )
     template = env.get_template('template.html')
 
-    html = template.render(books=books)
+    html = template.render(books_chunks=books_chunks)
 
     with open('index.html', 'w', encoding='utf-8') as f:
         f.write(html)
