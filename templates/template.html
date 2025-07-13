@@ -27,7 +27,7 @@
                     <div class="row g-0">
                         <div class="col-md-4">
                             <img
-                                src="{{ book.img_src }}"
+                                src="/img/{{ book.img_src.split('/')[-1] }}"
                                 class="img-fluid rounded-start book-cover"
                                 alt="Обложка: {{ book.title }}"
                             >
@@ -37,7 +37,7 @@
                                 <h5 class="card-title">{{ book.title }}</h5>
                                 <p class="card-text text-muted">{{ book.author }}</p>
                                 <p class="card-text"><small>{{ book.genres }}</small></p>
-                                <a href="{{ book.book_path }}" class="btn btn-sm btn-outline-primary">Читать</a>
+                                <a href="/{{ book.book_path | replace('\\', '/') }}" class="btn btn-sm btn-outline-primary" target="_blank">Читать</a>
                             </div>
                         </div>
                     </div>
