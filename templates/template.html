@@ -19,35 +19,8 @@
 <body>
     <div class="container py-4">
         <h1 class="text-center mb-4">Моя библиотека awesome</h1>
-        {% for books_pair in books_chunks %}
-        <div class="row">
-            {% for book in books_pair %}
-            <div class="col-md-6">
-                <div class="card book-card">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img
-                                src="/img/{{ book.img_src.split('/')[-1] }}"
-                                class="img-fluid rounded-start book-cover"
-                                alt="Обложка: {{ book.title }}"
-                            >
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ book.title }}</h5>
-                                <p class="card-text text-muted">{{ book.author }}</p>
-                                <p class="card-text"><small>{{ book.genres }}</small></p>
-                                <a href="/{{ book.book_path | replace('\\', '/') }}" class="btn btn-sm btn-outline-primary" target="_blank">Читать</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        {% endfor %}
-<!--        пагинатор-->
-        <nav aria-label="Page navigation" class="mt-4">
+        <!--        пагинатор-->
+        <nav aria-label="Page navigation" class="mt-4 mb-4">
             <ul class="pagination justify-content-center">
                 {# Кнопка "Предыдущая" #}
                 <li class="page-item {% if current_page == 1 %}
@@ -95,6 +68,42 @@
                 </li>
             </ul>
         </nav>
+
+
+        {% for books_pair in books_chunks %}
+        <div class="row">
+            {% for book in books_pair %}
+            <div class="col-md-6">
+                <div class="card book-card">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img
+                                src="/img/{{ book.img_src.split('/')[-1] }}"
+                                class="img-fluid rounded-start book-cover"
+                                alt="Обложка: {{ book.title }}"
+                            >
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ book.title }}</h5>
+                                <p class="card-text text-muted">{{ book.author }}</p>
+                                <p class="card-text">
+                                {% if book.genres %}
+                                    {% for genre in book.genres.split(', ') %}
+                                        <span class="badge bg-light text-dark me-1 mb-1">{{ genre }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </p>
+                                <a href="/{{ book.book_path | replace('\\', '/') }}" class="btn btn-sm btn-outline-primary" target="_blank">Читать</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
 
     </div>
 </body>
