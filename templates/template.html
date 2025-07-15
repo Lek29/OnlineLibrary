@@ -46,6 +46,56 @@
             {% endfor %}
         </div>
         {% endfor %}
+<!--        пагинатор-->
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+                {# Кнопка "Предыдущая" #}
+                <li class="page-item {% if current_page == 1 %}
+                                        disabled
+                                     {% endif %}"
+                >
+                    <a class="page-link" href="{% if current_page == 1 %}
+                                                    #
+                                               {% elif current_page == 2 %}
+                                                    /index.html
+                                               {% else %}
+                                                    /pages/page{{ current_page - 1 }}.html
+                                               {% endif %}" aria-label="Previous">
+                        <span aria-hidden="true">Назад</span>
+                    </a>
+                </li>
+
+                {# Номера страниц #}
+                {% for page in range(1, total_pages + 1) %}
+                <li class="page-item {% if page == current_page %}
+                                        active
+                                     {% endif %}">
+                    <a class="page-link" href="{% if page == 1 %}
+                                                    /index.html
+                                               {% else %}
+                                                    /pages/page{{ page }}.html
+                                               {% endif %}"
+                    >{{ page }}</a>
+                </li>
+                {% endfor %}
+
+                {# Кнопка "Следующая" #}
+                <li class="page-item {% if current_page == total_pages %}
+                                        disabled
+                                     {% endif %}">
+                    <a class="page-link" href="{% if current_page == total_pages %}
+                                                    #
+                                               {% elif current_page == 1 %}
+                                                    /pages/page2.html
+                                               {% else %}
+                                                    /pages/page{{ current_page + 1 }}.html
+                                               {% endif %}" aria-label="Next">
+                        <span aria-hidden="true">Вперед</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
     </div>
 </body>
 </html>
