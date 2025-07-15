@@ -30,5 +30,5 @@
 
 1. Клонируйте репозиторий:
    ```bash
-   git clone https://github.com/<твой_логин>/<название_репозитория>.git
+   git clone https://github.com/Lek29/OnlineLibrary
    cd <название_репозитория>
