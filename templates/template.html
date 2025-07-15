@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Библиотека</title>
-    <link rel="icon" href="/favicon.png" type="image/png">
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="./favicon.png" type="image/png">
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .book-card {
             max-width: 600px;
@@ -31,9 +31,9 @@
                     <a class="page-link" href="{% if current_page == 1 %}
                                                     #
                                                {% elif current_page == 2 %}
-                                                    /index.html
+                                                    index.html
                                                {% else %}
-                                                    /pages/page{{ current_page - 1 }}.html
+                                                    page{{ current_page - 1 }}.html
                                                {% endif %}" aria-label="Previous">
                         <span aria-hidden="true">Назад</span>
                     </a>
@@ -45,9 +45,9 @@
                                         active
                                      {% endif %}">
                     <a class="page-link" href="{% if page == 1 %}
-                                                    /index.html
+                                                    index.html
                                                {% else %}
-                                                    /pages/page{{ page }}.html
+                                                    page{{ page }}.html
                                                {% endif %}"
                     >{{ page }}</a>
                 </li>
@@ -60,9 +60,9 @@
                     <a class="page-link" href="{% if current_page == total_pages %}
                                                     #
                                                {% elif current_page == 1 %}
-                                                    /pages/page2.html
+                                                    page2.html
                                                {% else %}
-                                                    /pages/page{{ current_page + 1 }}.html
+                                                    page{{ current_page + 1 }}.html
                                                {% endif %}" aria-label="Next">
                         <span aria-hidden="true">Вперед</span>
                     </a>
@@ -79,7 +79,7 @@
                     <div class="row g-0">
                         <div class="col-md-4">
                             <img
-                                src="/img/{{ book.img_src.split('/')[-1] }}"
+                                src="img/{{ book.img_src.split('/')[-1] }}"
                                 class="img-fluid rounded-start book-cover"
                                 alt="Обложка: {{ book.title }}"
                             >
@@ -95,7 +95,7 @@
                                     {% endfor %}
                                 {% endif %}
                             </p>
-                                <a href="/{{ book.book_path | replace('\\', '/') }}" class="btn btn-sm btn-outline-primary" target="_blank">Читать</a>
+                                <a href="{{ book.book_path | replace('\\', '/') }}" class="btn btn-sm btn-outline-primary" target="_blank">Читать</a>
                             </div>
                         </div>
                     </div>

@@ -4,6 +4,8 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from more_itertools import chunked
 from livereload import Server
 
+GITHUB_PAGES_BASE_URL = '/OnlineLibrary/'
+
 
 def on_reload():
     print('Обнаружено изменение...')
@@ -25,8 +27,9 @@ def on_reload():
         cache_size=0
     )
     template = env.get_template('template.html')
+    
 
-    os.makedirs('pages', exist_ok=True)
+    # os.makedirs('pages', exist_ok=True)
 
     for page_num, page_books in enumerate(all_books_chunks, 1):
         books_chunks_for_template = list(chunked(page_books, 2))
@@ -34,7 +37,7 @@ def on_reload():
         if page_num == 1:
             output_filepath = 'index.html'
         else:
-            output_filepath = os.path.join('pages', f'page{page_num}.html')
+            output_filepath = f'page{page_num}.html'
 
         html = template.render(
             books_chunks=books_chunks_for_template,
