@@ -24,6 +24,7 @@ def on_reload(data_file_path):
         books = json.load(f)
 
     books_per_page = 10
+    books_per_row = 2
     all_books_chunks = list(chunked(books, books_per_page))
     total_pages = len(all_books_chunks)
 
@@ -35,7 +36,7 @@ def on_reload(data_file_path):
     template = env.get_template('template.html')
 
     for page_num, page_books in enumerate(all_books_chunks, 1):
-        books_chunks_for_template = list(chunked(page_books, 2))
+        books_chunks_for_template = list(chunked(page_books, books_per_row))
 
         if page_num == 1:
             output_filepath = 'index.html'
