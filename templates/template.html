@@ -1,109 +1,103 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
+  <head>
     <meta charset="UTF-8">
     <title>Библиотека</title>
     <link rel="icon" href="./favicon.png" type="image/png">
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .book-card {
-            max-width: 600px;
-            margin-bottom: 20px;
-        }
-        .book-cover {
-            width: 200px;
-            height: 300px;
-            object-fit: cover;
-        }
+      .book-card {
+        max-width: 600px;
+        margin-bottom: 20px;
+      }
+      .book-cover {
+        width: 200px;
+        height: 300px;
+        object-fit: cover;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container py-4">
-        <h1 class="text-center mb-4">Моя библиотека</h1>
-        <!--        пагинатор-->
-        <nav aria-label="Page navigation" class="mt-4 mb-4">
-            <ul class="pagination justify-content-center">
-                {# Кнопка "Предыдущая" #}
-                <li class="page-item {% if current_page == 1 %}
-                                        disabled
-                                     {% endif %}"
-                >
-                    <a class="page-link" href="{% if current_page == 1 %}
-                                                    #
-                                               {% elif current_page == 2 %}
-                                                    index.html
-                                               {% else %}
-                                                    page{{ current_page - 1 }}.html
-                                               {% endif %}" aria-label="Previous">
-                        <span aria-hidden="true">Назад</span>
-                    </a>
-                </li>
+      <h1 class="text-center mb-4">Моя библиотека</h1>
 
-                {# Номера страниц #}
-                {% for page in range(1, total_pages + 1) %}
-                <li class="page-item {% if page == current_page %}
-                                        active
-                                     {% endif %}">
-                    <a class="page-link" href="{% if page == 1 %}
-                                                    index.html
-                                               {% else %}
-                                                    page{{ page }}.html
-                                               {% endif %}"
-                    >{{ page }}</a>
-                </li>
-                {% endfor %}
+      <!-- Пагинатор -->
+      <nav aria-label="Page navigation" class="mt-4 mb-4">
+        <ul class="pagination justify-content-center">
+          {# Кнопка "Назад" #}
+          <li class="page-item {% if current_page == 1 %}disabled{% endif %}">
+            <a class="page-link" href="{% if current_page == 1 %}
+                                          #
+                                        {% elif current_page == 2 %}
+                                          index.html
+                                        {% else %}
+                                          page{{ current_page - 1 }}.html
+                                        {% endif %}" aria-label="Previous">
+              <span aria-hidden="true">Назад</span>
+            </a>
+          </li>
 
-                {# Кнопка "Следующая" #}
-                <li class="page-item {% if current_page == total_pages %}
-                                        disabled
-                                     {% endif %}">
-                    <a class="page-link" href="{% if current_page == total_pages %}
-                                                    #
-                                               {% elif current_page == 1 %}
-                                                    page2.html
-                                               {% else %}
-                                                    page{{ current_page + 1 }}.html
-                                               {% endif %}" aria-label="Next">
-                        <span aria-hidden="true">Вперед</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+          {# Номера страниц #}
+          {% for page in range(1, total_pages + 1) %}
+            <li class="page-item {% if page == current_page %}active{% endif %}">
+              <a class="page-link" href="{% if page == 1 %}
+                                            index.html
+                                          {% else %}
+                                            page{{ page }}.html
+                                          {% endif %}">{{ page }}
+              </a>
+            </li>
+          {% endfor %}
 
+          {# Кнопка "Вперёд" #}
+          <li class="page-item {% if current_page == total_pages %}disabled{% endif %}">
+            <a class="page-link" href="{% if current_page == total_pages %}
+                                          #
+                                        {% elif current_page == 1 %}
+                                          page2.html
+                                        {% else %}
+                                          page{{ current_page + 1 }}.html
+                                        {% endif %}" aria-label="Next">
+              <span aria-hidden="true">Вперёд</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
 
-        {% for books_pair in books_chunks %}
+      {% for books_pair in books_chunks %}
         <div class="row">
-            {% for book in books_pair %}
+          {% for book in books_pair %}
             <div class="col-md-6">
-                <div class="card book-card">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img
-                                src="media/images/{{ book.img_src.split('/')[-1] | urlencode }}"
-                                class="img-fluid rounded-start book-cover"
-                                alt="Обложка: {{ book.title }}"
-                            >
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ book.title }}</h5>
-                                <p class="card-text text-muted">{{ book.author }}</p>
-                                <p class="card-text">
-                                {% if book.genres %}
-                                    {% for genre in book.genres.split(', ') %}
-                                        <span class="badge bg-light text-dark me-1 mb-1">{{ genre }}</span>
-                                    {% endfor %}
-                                {% endif %}
-                            </p>
-                                <a href="media/{{ book.book_path | replace('\\', '/') | urlencode }}" class="btn btn-sm btn-outline-primary" target="_blank">Читать</a>
-                            </div>
-                        </div>
+              <div class="card book-card">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img
+                      src="media/images/{{ book.img_src.split('/')[-1] | urlencode }}"
+                      class="img-fluid rounded-start book-cover"
+                      alt="Обложка: {{ book.title }}">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ book.title }}</h5>
+                      <p class="card-text text-muted">{{ book.author }}</p>
+                      <p class="card-text">
+                        {% if book.genres %}
+                          {% for genre in book.genres.split(', ') %}
+                            <span class="badge bg-light text-dark me-1 mb-1">{{ genre }}</span>
+                          {% endfor %}
+                        {% endif %}
+                      </p>
+                      <a href="media/{{ book.book_path | replace('\\', '/') | urlencode }}"
+                         class="btn btn-sm btn-outline-primary"
+                         target="_blank">Читать</a>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
-            {% endfor %}
+          {% endfor %}
         </div>
-        {% endfor %}
+      {% endfor %}
     </div>
-</body>
+  </body>
 </html>
