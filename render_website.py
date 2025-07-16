@@ -6,18 +6,13 @@ from more_itertools import chunked
 
 
 def on_reload():
-    print('Обнаружено изменение...')
 
     with open('meta_data.json', 'r', encoding='utf-8') as f:
         books = json.load(f)
 
-    print(f"Загружено книг из meta_data.json: {len(books)}")
-
     books_per_page = 10
     all_books_chunks = list(chunked(books, books_per_page))
     total_pages = len(all_books_chunks)
-
-    print(f"Всего чанков (страниц): {total_pages}")
 
     env = Environment(
         loader=FileSystemLoader('templates'),
@@ -42,10 +37,6 @@ def on_reload():
 
         with open(output_filepath, 'w', encoding='utf-8') as f:
             f.write(html)
-
-        print(f"  Сгенерирован {output_filepath}")
-
-    print("Все страницы с книгами обновлены!")
 
 
 if __name__ == '__main__':
