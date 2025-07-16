@@ -1,3 +1,4 @@
+import argparse
 import json
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -5,9 +6,21 @@ from livereload import Server
 from more_itertools import chunked
 
 
-def on_reload():
+DEFAULT_DATA_FILE = 'meta_data.json'
 
-    with open('meta_data.json', 'r', encoding='utf-8') as f:
+def parse_args():
+    parser = argparse.ArgumentParser(description='Сгенирировать данные из json файла')
+    parser.add_argument(
+        '--data-file',
+        type=str,
+        default=None,
+        help='Путь к json файлу'
+    )
+    return parser.parse_args()
+
+def on_reload(data_file_path):
+
+    with open(data_file_path, 'r', encoding='utf-8') as f:
         books = json.load(f)
 
     books_per_page = 10
@@ -40,9 +53,13 @@ def on_reload():
 
 
 if __name__ == '__main__':
-    on_reload()
+    args = parse_args()
+
+    data_file_path = args.data_file or DEFAULT_DATA_FILE
+
+    on_reload(data_file_path)
 
     server = Server()
-    server.watch('templates/template.html', on_reload)
-    server.watch('meta_data.json', on_reload)
+    server.watch('templates/template.html', lambda: on_reload(data_file_path))
+    server.watch(data_file_path, lambda: on_reload(data_file_path))
     server.serve(root='.', port=5500, liveport=35729)
