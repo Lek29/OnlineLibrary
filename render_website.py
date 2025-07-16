@@ -1,10 +1,8 @@
-import os
 import json
-from jinja2 import Environment, FileSystemLoader, select_autoescape
-from more_itertools import chunked
-from livereload import Server
 
-GITHUB_PAGES_BASE_URL = '/OnlineLibrary/'
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+from livereload import Server
+from more_itertools import chunked
 
 
 def on_reload():
@@ -27,9 +25,6 @@ def on_reload():
         cache_size=0
     )
     template = env.get_template('template.html')
-    
-
-    # os.makedirs('pages', exist_ok=True)
 
     for page_num, page_books in enumerate(all_books_chunks, 1):
         books_chunks_for_template = list(chunked(page_books, 2))
