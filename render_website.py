@@ -4,6 +4,7 @@ import json
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
 from more_itertools import chunked
+from urllib.parse import quote
 
 
 DEFAULT_DATA_FILE = 'meta_data.json'
@@ -33,6 +34,7 @@ def on_reload(data_file_path):
         autoescape=select_autoescape(['html']),
         cache_size=0
     )
+    env.filters['urlencode'] = quote
     template = env.get_template('template.html')
 
     for page_num, page_books in enumerate(all_books_chunks, 1):
