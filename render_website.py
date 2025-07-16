@@ -38,10 +38,9 @@ def on_reload(data_file_path):
     for page_num, page_books in enumerate(all_books_chunks, 1):
         books_chunks_for_template = list(chunked(page_books, books_per_row))
 
-        if page_num == 1:
-            output_filepath = 'index.html'
-        else:
-            output_filepath = f'page{page_num}.html'
+
+        output_filepath = 'index.html' if page_num == 1 else f'page{page_num}.html'
+
 
         html = template.render(
             books_chunks=books_chunks_for_template,
