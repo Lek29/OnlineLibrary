@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>Библиотека</title>
-    <link rel="icon" href="static/favicon.png" type="image/png">
-    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="../static/favicon.png" type="image/png">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
     <style>
       .book-card {
         max-width: 600px;
@@ -72,7 +72,7 @@
                 <div class="row g-0">
                   <div class="col-md-4">
                     <img
-                      src="media/images/{{ book.img_src.split('/')[-1] | urlencode }}"
+                      src="../media/images/{{ book.img_src.split('/')[-1] | urlencode }}"
                       class="img-fluid rounded-start book-cover"
                       alt="Обложка: {{ book.title }}">
                   </div>
@@ -87,7 +87,7 @@
                           {% endfor %}
                         {% endif %}
                       </p>
-                      <a href="media/{{ book.book_path | replace('\\', '/') | urlencode }}"
+                      <a href="../media/{{ book.book_path | replace('\\', '/') | urlencode }}"
                          class="btn btn-sm btn-outline-primary"
                          target="_blank">Читать</a>
                     </div>

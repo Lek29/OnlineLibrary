@@ -1,5 +1,7 @@
 import argparse
 import json
+import os
+import webbrowser
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
@@ -41,7 +43,7 @@ def on_reload(data_file_path):
         books_chunks_for_template = list(chunked(page_books, books_per_row))
 
 
-        output_filepath = 'index.html' if page_num == 1 else f'page{page_num}.html'
+        output_filepath = os.path.join('pages','index.html') if page_num == 1 else os.path.join('pages', f'page{page_num}.html')
 
 
         html = template.render(
