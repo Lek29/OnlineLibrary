@@ -43,13 +43,18 @@ def on_reload(data_file_path):
         books_chunks_for_template = list(chunked(page_books, books_per_row))
 
 
-        output_filepath = os.path.join('pages','index.html') if page_num == 1 else os.path.join('pages', f'page{page_num}.html')
+        output_filepath = 'index.html' if page_num == 1 else os.path.join('pages', f'page{page_num}.html')
 
+        if page_num != 1:
+            os.makedirs('pages', exist_ok=True)
+
+        relative_path_prefix = '' if page_num == 1 else '../'
 
         html = template.render(
             books_chunks=books_chunks_for_template,
             total_pages=total_pages,
-            current_page=page_num
+            current_page=page_num,
+            relative_path_prefix=relative_path_prefix
         )
 
         with open(output_filepath, 'w', encoding='utf-8') as f:
