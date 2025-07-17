@@ -6,7 +6,7 @@
 
 ## Ссылка на опубликованный сайт
 
-[Моя библиотека на GitHub Pages](https://lek29.github.io/OnlineLibrary/page3.html)
+[Моя библиотека на GitHub Pages](https://lek29.github.io/OnlineLibrary/)
 
 ---
 
